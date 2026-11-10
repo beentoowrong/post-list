@@ -145,4 +145,23 @@ class PostController extends Controller
             return redirect()->route('posts.index')->with(['error' => 'Data Gagal Diupdate']);
         }
     }
+
+        /**
+     * destroy
+     *
+     * @param  mixed $post
+     * @return void
+     */
+    public function destroy(Post $post)
+    {
+        //delete image
+        Storage::delete('public/posts/'. $post->image);
+
+        //delete post
+        $post->delete();
+
+        //redirect to index
+        return redirect()->route('posts.index')->with(['success' => 'Data Berhasil Dihapus!']);
+    }
+
 }
